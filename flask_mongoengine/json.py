@@ -92,9 +92,18 @@ if use_json_provider():
 
     MongoEngineJSONProvider = _update_json_provider(DefaultJSONProvider)
 else:
-    from flask.json import JSONEncoder
+    try:
+        from flask.json import JSONEncoder
 
-    MongoEngineJSONEncoder = _make_encoder(JSONEncoder)
+        MongoEngineJSONEncoder = _make_encoder(JSONEncoder)
+    except:
+        warnings.warn(
+            (
+                "JSONEncoder import failed."
+            ),
+            ImportWarning,
+            stacklevel=2,
+        )
 # End of compatibility code
 
 
